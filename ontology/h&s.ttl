@@ -1,108 +1,144 @@
-@prefix : <http://www.semanticweb.org/serge30/hs#> .
+@prefix : <http://bimerr.iot.linkeddata.es/def/health-security-issues#> .
+@prefix hs: <http://bimerr.iot.linkeddata.es/def/health-security-issues#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@base <http://www.semanticweb.org/serge30/hs> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix building: <http://bimerr.iot.linkeddata.es/def/building#> .
+@base <http://bimerr.iot.linkeddata.es/def/health-security-issues> .
 
-<http://www.semanticweb.org/serge30/hs> rdf:type owl:Ontology ;
-                                         rdfs:comment "This ontology model the H&S domain"@en .
+<http://bimerr.iot.linkeddata.es/def/health-security-issues> rdf:type owl:Ontology ;
+                                                              <http://purl.org/dc/elements/1.1/created> "2020-04-01" ;
+                                                              <http://purl.org/dc/elements/1.1/creator> "Serge Chávez Feria" ;
+                                                              <http://purl.org/dc/elements/1.1/title> "Health and Security Issues ontology"@en ;
+                                                              <http://purl.org/dc/terms/license> "http://purl.org/NET/rdflicense/cc-by4.0" ;
+                                                              owl:versionInfo "0.0.1" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/elements/1.1/created
+<http://purl.org/dc/elements/1.1/created> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/creator
+<http://purl.org/dc/elements/1.1/creator> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/title
+<http://purl.org/dc/elements/1.1/title> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+<http://purl.org/dc/terms/license> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2002/07/owl#versionInfo
+owl:versionInfo rdf:type owl:AnnotationProperty .
+
 
 #################################################################
 #    Object Properties
 #################################################################
 
-###  http://www.semanticweb.org/serge30/hs#causedBy
-:causedBy rdf:type owl:ObjectProperty .
+###  http://bimerr.iot.linkeddata.es/def/health-security-issues#developedIn
+hs:developedIn rdf:type owl:ObjectProperty ;
+               rdfs:label "developed in"@en .
 
 
-###  http://www.semanticweb.org/serge30/hs#generates
-:generates rdf:type owl:ObjectProperty .
+###  http://bimerr.iot.linkeddata.es/def/health-security-issues#generatesAlert
+hs:generatesAlert rdf:type owl:ObjectProperty ;
+                  rdfs:label "generates alert"@en .
 
 
-###  http://www.semanticweb.org/serge30/hs#hasDuration
-:hasDuration rdf:type owl:ObjectProperty .
+###  http://bimerr.iot.linkeddata.es/def/health-security-issues#happensWithin
+hs:happensWithin rdf:type owl:ObjectProperty ;
+                 rdfs:label "happens within"@en .
 
 
-###  http://www.semanticweb.org/serge30/hs#hasLocation
-:hasLocation rdf:type owl:ObjectProperty .
+###  http://bimerr.iot.linkeddata.es/def/health-security-issues#hasDuration
+hs:hasDuration rdf:type owl:ObjectProperty ;
+               rdfs:label "has duration"@en .
 
 
-###  http://www.semanticweb.org/serge30/hs#involves
-:involves rdf:type owl:ObjectProperty .
+###  http://bimerr.iot.linkeddata.es/def/health-security-issues#involvesHazard
+hs:involvesHazard rdf:type owl:ObjectProperty ;
+                  rdfs:label "involves hazard"@en .
 
 
 #################################################################
 #    Data properties
 #################################################################
 
-###  http://www.semanticweb.org/serge30/hs#message
-:message rdf:type owl:DatatypeProperty .
+###  http://bimerr.iot.linkeddata.es/def/health-security-issues#message
+hs:message rdf:type owl:DatatypeProperty ;
+           rdfs:label "message"@en .
 
 
 #################################################################
 #    Classes
 #################################################################
 
-###  http://www.semanticweb.org/serge30/hs#Alert
-:Alert rdf:type owl:Class ;
-       rdfs:subClassOf [ rdf:type owl:Restriction ;
-                         owl:onProperty :message ;
-                         owl:someValuesFrom xsd:string
-                       ] ;
-       rdfs:label "Alert"@en .
+###  http://bimerr.iot.linkeddata.es/def/building#BuildingSpace
+building:BuildingSpace rdf:type owl:Class ;
+                       rdfs:comment "Represents the internal location within the building where the work process is being carried out."@en ;
+                       rdfs:label "Building Space"@en .
 
 
-###  http://www.semanticweb.org/serge30/hs#HazardType
-:HazardType rdf:type owl:Class ;
-            rdfs:subClassOf [ rdf:type owl:Restriction ;
-                              owl:onProperty :causedBy ;
-                              owl:someValuesFrom :TriggerEvent
-                            ] ;
-            rdfs:label "Hazard Type"@en .
+###  http://bimerr.iot.linkeddata.es/def/health-security-issues#Alert
+hs:Alert rdf:type owl:Class ;
+         rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty hs:message ;
+                           owl:someValuesFrom xsd:string
+                         ] ;
+         rdfs:label "Alert"@en .
 
 
-###  http://www.semanticweb.org/serge30/hs#InternalLocation
-:InternalLocation rdf:type owl:Class ;
-                  rdfs:label "Internal Location"@en .
+###  http://bimerr.iot.linkeddata.es/def/health-security-issues#Hazard
+hs:Hazard rdf:type owl:Class ;
+          rdfs:comment "Concept that groups types of hazards for workers, occupants, etc."@en ;
+          rdfs:label "Hazard"@en .
 
 
-###  http://www.semanticweb.org/serge30/hs#TriggerEvent
-:TriggerEvent rdf:type owl:Class ;
-              rdfs:subClassOf [ rdf:type owl:Restriction ;
-                                owl:onProperty :generates ;
-                                owl:someValuesFrom :Alert
-                              ] ;
-              rdfs:label "Trigger Event"@en .
+###  http://bimerr.iot.linkeddata.es/def/health-security-issues#Trigger
+hs:Trigger rdf:type owl:Class ;
+           rdfs:subClassOf [ rdf:type owl:Restriction ;
+                             owl:onProperty hs:generatesAlert ;
+                             owl:someValuesFrom hs:Alert
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty hs:happensWithin ;
+                             owl:someValuesFrom hs:WorkProcess
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty hs:involvesHazard ;
+                             owl:someValuesFrom hs:Hazard
+                           ] ;
+           rdfs:comment "Represents the event that triggers an alert."@en ;
+           rdfs:label "Trigger"@en .
 
 
-###  http://www.semanticweb.org/serge30/hs#WorkProcess
-:WorkProcess rdf:type owl:Class ;
-             rdfs:subClassOf [ rdf:type owl:Restriction ;
-                               owl:onProperty :hasDuration ;
-                               owl:someValuesFrom <http://www.w3.org/2006/time#TemporalEntity>
-                             ] ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty :hasLocation ;
-                               owl:someValuesFrom :InternalLocation
-                             ] ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty :involves ;
-                               owl:someValuesFrom :TriggerEvent
-                             ] ;
-             rdfs:label "Work Process"@en .
-
-
-###  http://www.w3.org/2006/time#TemporalEntity
-<http://www.w3.org/2006/time#TemporalEntity> rdf:type owl:Class ;
-                                             rdfs:label "Temporal Entity"@en .
+###  http://bimerr.iot.linkeddata.es/def/health-security-issues#WorkProcess
+hs:WorkProcess rdf:type owl:Class ;
+               rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                 owl:onProperty hs:hasDuration ;
+                                 owl:someValuesFrom time:TimeInterval
+                               ] ;
+               rdfs:comment "Concept that represents the ongoing renovation work"@en ;
+               rdfs:label "Work Process"@en .
 
 
 ###  http://www.w3.org/2006/time#TimeInterval
-<http://www.w3.org/2006/time#TimeInterval> rdf:type owl:Class ;
-                                           rdfs:subClassOf <http://www.w3.org/2006/time#TemporalEntity> ;
-                                           rdfs:label "Time Interval"@en .
+time:TimeInterval rdf:type owl:Class ;
+                  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                    owl:onProperty hs:developedIn ;
+                                    owl:someValuesFrom building:BuildingSpace
+                                  ] ;
+                  rdfs:comment "Represents the duration of a work process."@en ;
+                  rdfs:label "Time Interval"@en .
 
 
 ###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
